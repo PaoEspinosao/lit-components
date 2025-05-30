@@ -16,23 +16,37 @@ export class Login extends LitElement {
 
       </div>
     `;
-
-
   }
 
   _login() {
-    const emailInput = this.shadowRoot?.querySelector<HTMLInputElement>('#email');
-    const passInput = this.shadowRoot?.querySelector<HTMLInputElement>('#pass');
+  const emailInput = this.shadowRoot?.querySelector<HTMLInputElement>('#email');
+  const passInput = this.shadowRoot?.querySelector<HTMLInputElement>('#pass');
 
-    if (!!emailInput || !!passInput) {
-      this.dispatchEvent(new CustomEvent(`sign`, {
-        detail: { login: true },
-        bubbles: true,
-        composed: true
-      }));
-    }
-  };
+  const email = emailInput?.value.trim();
+  const password = passInput?.value.trim();
 
+  if (!email || !password) {
+    alert('Por favor, completa todos los campos.');
+    return;
+  }
+
+  const storedEmail = localStorage.getItem('userEmail');
+  const storedPassword = localStorage.getItem('userPassword');
+
+  // Comparamos con lo que el usuario escribió
+  if (email === storedEmail && password === storedPassword) {
+    alert('Inicio de sesión exitoso');
+    
+    this.dispatchEvent(new CustomEvent('sign', {
+      detail: { login: true },
+      bubbles: true,
+      composed: true
+    }));
+  } else {
+    alert('Correo o contraseña incorrectos');
+  }
+
+}
 
   static styles = css`
       .container{
