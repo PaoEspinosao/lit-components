@@ -1,127 +1,85 @@
-import { LitElement, css, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-import litLogo from './assets/lit.svg'
-import viteLogo from '/vite.svg'
+import { LitElement, css, html } from 'lit-element'
+import { customElement } from 'lit/decorators.js';
 
-/**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
- */
 @customElement('my-element')
-export class MyElement extends LitElement {
-  /**
-   * Copy for the read the docs hint.
-   */
-  @property()
-  docsHint = 'Click on the Vite and Lit logos to learn more'
+export class Login extends LitElement {
 
-  /**
-   * The number of times the button has been clicked.
-   */
-  @property({ type: Number })
-  count = 0
 
   render() {
     return html`
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src=${viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://lit.dev" target="_blank">
-          <img src=${litLogo} class="logo lit" alt="Lit logo" />
-        </a>
+      <div class="container">
+        <h2> Login </h2>
+        <input id="email" type = "email" placeholder = "Introduce tu Email"></input>
+        <input id="pass" type = "password" placeholder = "Introduce Password"></input>
+
+        <button @click=${this._login.bind(this)}>Iniciar sesión</button>
+
       </div>
-      <slot></slot>
-      <div class="card">
-        <button @click=${this._onClick} part="button">
-          count is ${this.count}
-        </button>
-      </div>
-      <p class="read-the-docs">${this.docsHint}</p>
-    `
+    `;
+
+
   }
 
-  private _onClick() {
-    this.count++
-  }
+  _login() {
+    const emailInput = this.shadowRoot?.querySelector<HTMLInputElement>('#email');
+    const passInput = this.shadowRoot?.querySelector<HTMLInputElement>('#pass');
+
+    if (!!emailInput || !!passInput) {
+      this.dispatchEvent(new CustomEvent(`sign`, {
+        detail: { login: true },
+        bubbles: true,
+        composed: true
+      }));
+    }
+  };
+
 
   static styles = css`
-    :host {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .logo {
-      height: 6em;
-      padding: 1.5em;
-      will-change: filter;
-      transition: filter 300ms;
-    }
-    .logo:hover {
-      filter: drop-shadow(0 0 2em #646cffaa);
-    }
-    .logo.lit:hover {
-      filter: drop-shadow(0 0 2em #325cffaa);
-    }
-
-    .card {
-      padding: 2em;
-    }
-
-    .read-the-docs {
-      color: #888;
-    }
-
-    ::slotted(h1) {
-      font-size: 3.2em;
-      line-height: 1.1;
-    }
-
-    a {
-      font-weight: 500;
-      color: #646cff;
-      text-decoration: inherit;
-    }
-    a:hover {
-      color: #535bf2;
-    }
-
-    button {
-      border-radius: 8px;
-      border: 1px solid transparent;
-      padding: 0.6em 1.2em;
-      font-size: 1em;
-      font-weight: 500;
-      font-family: inherit;
-      background-color: #1a1a1a;
-      cursor: pointer;
-      transition: border-color 0.25s;
-    }
-    button:hover {
-      border-color: #646cff;
-    }
-    button:focus,
-    button:focus-visible {
-      outline: 4px auto -webkit-focus-ring-color;
-    }
-
-    @media (prefers-color-scheme: light) {
-      a:hover {
-        color: #747bff;
+      .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid black;
+        border-radius: 10px;
+        width: 350px;
+        height: 400px;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: whithe;
       }
-      button {
-        background-color: #f9f9f9;
+      
+      input{
+        width: 90%;
+        height:30px;
+        margin-top: 8vh;
+        border: solid 2px #414141;
+        border-top: 0px;
+        border-radius: 5px;
       }
-    }
-  `
+      
+      button{
+        width: 60%;
+        height:40px;
+        background: #781A8C;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        margin-top:8vh;
+      }
+
+      button:hover {
+        background: #E7DDFF;
+        color: black;
+        cursor:pointer;
+      }
+    
+    `;
+
 }
-
 declare global {
   interface HTMLElementTagNameMap {
-    'my-element': MyElement
+    'my-element': Login
   }
 }
