@@ -39,7 +39,7 @@ export class PokeApi extends LitElement {
 
   render() {
     return html`
-      <p>Lista de Pokémon con detalles:</p>
+      <p>Lista de Pokémon:</p>
       <ul>
         ${this.pokemonDetalle.map(
           (poke, index) => html`
