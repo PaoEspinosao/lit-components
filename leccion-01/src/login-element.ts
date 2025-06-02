@@ -1,14 +1,14 @@
 import { LitElement, css, html } from 'lit-element'
 import { customElement } from 'lit/decorators.js';
 
-@customElement('my-element')
+@customElement('login-element')
 export class Login extends LitElement {
 
 
   render() {
     return html`
       <div class="container">
-        <h2> Login </h2>
+        <h2> LOGIN </h2>
         <input id="email" type = "email" placeholder = "Introduce tu Email"></input>
         <input id="pass" type = "password" placeholder = "Introduce Password"></input>
 
@@ -30,8 +30,8 @@ export class Login extends LitElement {
     return;
   }
 
-  const storedEmail = localStorage.getItem('userEmail');
-  const storedPassword = localStorage.getItem('userPassword');
+  const storedEmail = localStorage.getItem('Usuario');
+  const storedPassword = localStorage.getItem('Password');
 
   // Comparamos con lo que el usuario escribió
   if (email === storedEmail && password === storedPassword) {
@@ -49,6 +49,7 @@ export class Login extends LitElement {
 }
 
   static styles = css`
+      
       .container{
         display: flex;
         flex-direction: column;
@@ -61,22 +62,26 @@ export class Login extends LitElement {
         text-align: center;
         padding: 20px;
         box-sizing: border-box;
-        background-color: whithe;
+        background-color: #C3ADFF;
+      }
+      
+      h2{
+        color: white;
       }
       
       input{
         width: 90%;
-        height:30px;
-        margin-top: 8vh;
+        height: 80px;
+        margin-top: 2vh;
         border: solid 2px #414141;
         border-top: 0px;
         border-radius: 5px;
       }
       
       button{
-        width: 60%;
-        height:40px;
-        background: #781A8C;
+        width: 80%;
+        height:80px;
+        background: #FA73AE;
         color: white;
         border: none;
         border-radius: 6px;
@@ -84,7 +89,7 @@ export class Login extends LitElement {
       }
 
       button:hover {
-        background: #E7DDFF;
+        background: #FFFAC7;
         color: black;
         cursor:pointer;
       }
@@ -94,6 +99,6 @@ export class Login extends LitElement {
 }
 declare global {
   interface HTMLElementTagNameMap {
-    'my-element': Login
+    'login-element': Login
   }
 }
